@@ -582,7 +582,7 @@ class Solution17 {
                 int nWith = 0;
                 int nHeight = 0;
                 int minHeight = 0;
-                int minWith = 0;
+                int minWith;
                 for (int j = i; j >= 0; j--) {
                     if (j == i) {
                         nHeight = heights[j];
