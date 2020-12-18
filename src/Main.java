@@ -6,17 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-class Solution {
+@SuppressWarnings("unused")
+class Solution1 {
 
-    public static void main(String[] args) {
-        Object o = new Object();
-        Solution solution = new Solution();
-        System.out.println(solution.threeSum(new int[]{1, 32131, 211321, 3232}));
-
-    }
-
-    private HashSet<List<Integer>> results = new HashSet<>();
-    private HashSet<List<Integer>> sums = new HashSet<>();
+    private final HashSet<List<Integer>> results = new HashSet<>();
+    private final HashSet<List<Integer>> sums = new HashSet<>();
 
 
     private List<List<Integer>> threeSum(int[] nums) {
@@ -64,19 +58,14 @@ class Solution {
 
 }
 
+@SuppressWarnings("unused")
 class Solution2 {
 
-    public static void main(String[] args) {
-        boolean valid = new Solution2().isValid("((");
-        System.out.println(valid);
-    }
-
-    private char[] left = new char[]{'(', '{', '['};
-    private char[] right = new char[]{')', '}', ']'};
-
+    private final char[] left = new char[]{'(', '{', '['};
+    private final char[] right = new char[]{')', '}', ']'};
 
     private boolean isValid(String s) {
-        Stack<Character> stack = new Stack();
+        Stack<Character> stack = new Stack<>();
         char[] symbol = s.toCharArray();
         for (char c : symbol) {
             if (isLeft(c)) {
@@ -106,22 +95,15 @@ class Solution2 {
 
 }
 
+@SuppressWarnings("unused")
 class Solution3 {
 
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        invertTree(root);
-        System.out.println(root.right);
-
-    }
-
-    public static TreeNode invertTree(TreeNode root) {
+    public TreeNode invertTree(TreeNode root) {
         recall(root);
         return root;
     }
 
-    private static void recall(TreeNode root) {
+    private void recall(TreeNode root) {
         if (root == null) return;
         if (root.left != null && root.right != null) {
             TreeNode tmp = root.left;
@@ -144,12 +126,9 @@ class Solution3 {
 
 }
 
+@SuppressWarnings("unused")
 class Solution4 {
 
-    public static void main(String[] args) {
-        Integer i = null;
-        System.out.println(1 > i);
-    }
 
     public boolean isValidBST(TreeNode root) {
         return recall(root, null, null);
@@ -162,7 +141,6 @@ class Solution4 {
             if (maxVal != null && node.right.val >= maxVal) return false;
             if (minVal != null && node.right.val <= minVal) return false;
             if (node.left.val >= node.val) return false;
-            if (maxVal != null && node.left.val >= maxVal) return false;
             if (minVal != null && node.left.val <= minVal) return false;
             return recall(node.left, minVal, node.val) && recall(node.right, node.val, maxVal);
         } else if (node.left != null) {
@@ -180,7 +158,7 @@ class Solution4 {
         }
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -191,11 +169,8 @@ class Solution4 {
     }
 }
 
+@SuppressWarnings("unused")
 class Solution5 {
-    public static void main(String[] args) {
-        Solution5 solution5 = new Solution5();
-        System.out.println(solution5.minPathSum(new int[][]{}));
-    }
 
     public int minPathSum(int[][] grid) {
         if (grid == null || grid.length == 0) return 0;
@@ -222,17 +197,10 @@ class Solution5 {
     }
 }
 
+@SuppressWarnings("unused")
 class Solution6 {
 
-
-    public static void main(String[] args) {
-        Solution6 solution6 = new Solution6();
-        int[] a = new int[]{10, 9, 2, 5, 3, 7, 101, 18};
-        solution6.dynamicPra(a);
-    }
-
     private LinkedList<Integer> longestIncreasing;
-
 
     private void recur(int[] a, int i, LinkedList<Integer> increasing) {
         if (longestIncreasing == null || increasing.size() > longestIncreasing.size()) {
@@ -275,20 +243,10 @@ class Solution6 {
     }
 }
 
+@SuppressWarnings("unused")
 class Solution7 {
 
-    //    [[-1],[2,3],[1,-1,-3]]
-    public static void main(String[] args) {
-        List<List<Integer>> triangle = new ArrayList<>();
-        triangle.add(Arrays.asList(-1));
-        triangle.add(Arrays.asList(2, 3));
-        triangle.add(Arrays.asList(1, -1, -3));
-//        triangle.add(Arrays.asList(4, 1, 8, 3));
-        System.out.println(minimumTotal(triangle));
-
-    }
-
-    private static int minimumTotal(List<List<Integer>> triangle) {
+    private int minimumTotal(List<List<Integer>> triangle) {
         int[] values = new int[triangle.size()];
         for (List<Integer> integers : triangle) {
             for (int j = integers.size() - 1; j >= 0; j--) {
@@ -309,14 +267,8 @@ class Solution7 {
     }
 }
 
+@SuppressWarnings("unused")
 class Solution8 {
-
-    public static void main(String[] args) {
-        Solution8 s = new Solution8();
-        System.out.println(s.maxProduct(new int[]{-5, 0, -2, 2}));
-
-    }
-
     public int maxProduct(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
 
@@ -357,13 +309,8 @@ class Solution8 {
     }
 }
 
+@SuppressWarnings("unused")
 class Solution9 {
-
-    public static void main(String[] args) {
-        Solution9 solution9 = new Solution9();
-        System.out.println(solution9.coinChange(new int[]{186, 419, 83, 408}, 6249));
-        System.out.println(solution9.dp(new int[]{25, 72, 33}, 15682));
-    }
 
     public int coinChange(int[] coins, int amount) {
         if (coins == null || coins.length == 0) return -1;
@@ -380,11 +327,7 @@ class Solution9 {
         }
         if (sum >= amount || i < 0) {
             if (sum == amount) {
-                if (minCount == -1) {
-                    minCount = count;
-                } else {
-                    minCount = Math.min(count, minCount);
-                }
+                minCount = count;
             }
             return;
         }
@@ -392,7 +335,6 @@ class Solution9 {
         recur(coins, amount, i - 1, count + 1, sum + coins[i]);
         recur(coins, amount, i - 1, count, sum);
     }
-
 
     public int dp(int[] coins, int amount) {
         if (coins == null || coins.length == 0) return -1;
@@ -428,15 +370,10 @@ class Solution9 {
         return -1;
     }
 
-
 }
 
+@SuppressWarnings("unused")
 class Solution10 {
-
-    public static void main(String[] args) {
-        Solution10 solution10 = new Solution10();
-        System.out.println(solution10.maxProfit(new int[]{1, 3, 0, 1, 1}));
-    }
 
     private int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0) return 0;
@@ -460,19 +397,10 @@ class Solution10 {
     }
 }
 
+@SuppressWarnings("unused")
 class Solution11 {
 
-    public static void main(String[] args) {
-
-        Solution11 solution11 = new Solution11();
-//        int min = solution11.mincostTickets(new int[]{1, 4, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 27, 28}, new int[]{3, 13, 45});
-//        int min = solution11.mincostTickets(new int[]{1, 4, 6, 7, 8, 20}, new int[]{7, 2, 15});
-//        int min = solution11.mincostTickets(new int[]{1, 2, 3, 4, 6, 8, 9, 10, 13, 14, 16, 17, 19, 21, 24, 26, 27, 28, 29}, new int[]{3, 14, 50});
-        int min = solution11.mincostTickets(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 30, 31}, new int[]{2, 7, 15});
-        System.out.println(min);
-    }
-
-    public int mincostTickets(int[] days, int[] costs) {
+    public int minCostTickets(int[] days, int[] costs) {
         int[] minCost = new int[days.length];
         for (int i = 0; i < days.length; i++) {
             if (i == 0) {
@@ -515,13 +443,8 @@ class Solution11 {
 
 }
 
+@SuppressWarnings("unused")
 class Solution12 {
-
-    public static void main(String[] args) {
-        Solution12 solution = new Solution12();
-        System.out.println(solution.myPow(2.1, 3));
-    }
-
 
     public double myPow(double x, int n) {
         if (x == 0) return 0;
@@ -540,7 +463,7 @@ class Solution12 {
         }
         DecimalFormat decimalFormat = new DecimalFormat(".#####");
 
-        return Double.valueOf(decimalFormat.format(result));
+        return Double.parseDouble(decimalFormat.format(result));
     }
 
     public double myPow2(double x, int n) {
@@ -557,18 +480,12 @@ class Solution12 {
             ans *= x;
         }
         DecimalFormat decimalFormat = new DecimalFormat(".#####");
-        return Double.valueOf(decimalFormat.format(ans));
+        return Double.parseDouble(decimalFormat.format(ans));
     }
 }
 
+@SuppressWarnings("unused")
 class Solution13 {
-
-    public static void main(String[] args) {
-        Solution13 solution13 = new Solution13();
-        int i = solution13.singleNumber(new int[]{2, 1, 3, 4, 5, 6, 1, 2, 7, 5, 4, 6, 7});
-        System.out.println(i);
-
-    }
 
     public int singleNumber(int[] nums) {
         int unMatch = 0;
@@ -596,14 +513,8 @@ class Solution13 {
     }
 }
 
+@SuppressWarnings("unused")
 class Solution14 {
-
-
-    public static void main(String[] args) {
-        Solution14 solution14 = new Solution14();
-        System.out.println(solution14.subarraySum(new int[]{0, 0, 0}, 0));
-    }
-
 
     public int subarraySum(int[] nums, int k) {
         int count = 0;
@@ -619,6 +530,7 @@ class Solution14 {
 
 }
 
+@SuppressWarnings("unused")
 class Solution15 {
     public boolean validPalindrome(String s) {
         int low = 0, high = s.length() - 1;
@@ -650,49 +562,10 @@ class Solution15 {
     }
 }
 
-class Solution16 {
-
-    private char[] vowel = new char[]{'a', 'e', 'i', 'o', 'u'};
-
-    public int findTheLongestSubstring(String s) {
-        int maxLength = 0;
-        int[] dp = new int[s.length()];
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < s.toCharArray().length; i++) {
-            if (i == 0) {
-                if (isVowel(chars[i])) {
-                    dp[i] = 0;
-                } else {
-                    dp[i] = 1;
-                }
-            } else {
-
-            }
-
-
-        }
-        return maxLength;
-    }
-
-    public boolean isVowel(char c) {
-        for (char value : vowel) {
-            if (value == c) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-}
-
+@SuppressWarnings("unused")
 class Solution17 {
-    public static void main(String[] args) {
-        System.out.println(largestRectangleArea(new int[]{2, 1, 5, 6, 2, 3}));
 
-    }
-
-    public static int largestRectangleArea(int[] heights) {
+    public int largestRectangleArea(int[] heights) {
         int height = 0;
         int with = 0;
         int start = 0;
@@ -741,6 +614,7 @@ class Solution17 {
         return with * height;
     }
 }
+
 
 
 
