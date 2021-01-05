@@ -1,10 +1,7 @@
+import array.Array;
+
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 @SuppressWarnings("unused")
 class Solution1 {
@@ -212,9 +209,9 @@ class Solution6 {
 
         }
         if (increasing.isEmpty() || increasing.getLast() < a[i]) {
-            LinkedList<Integer> newIncresing = new LinkedList<>(increasing);
+            LinkedList<Integer> newIncreasing = new LinkedList<>(increasing);
             increasing.add(a[i++]);
-            recur(a, i, newIncresing);
+            recur(a, i, newIncreasing);
             recur(a, i, increasing);
         } else {
             LinkedList<Integer> newIncreasing = new LinkedList<>();
@@ -612,6 +609,37 @@ class Solution17 {
             }
         }
         return with * height;
+    }
+}
+
+@SuppressWarnings("unused")
+class Solution18 {
+
+    public List<List<Integer>> largeGroupPositions(String s) {
+        if( s==null || s.isEmpty()) return new LinkedList<>();
+        List<List<Integer>> groups = new LinkedList<>();
+        char[] chars = s.toCharArray();
+        List<Integer> group = new ArrayList<>(2);
+        group.add(0);
+        group.add(0);
+        char tmp = chars[0];
+        for (int i = 1; i < chars.length; i++) {
+            if (chars[i] != tmp) {
+                tmp = chars[i];
+                if (group.get(1) - group.get(0) > 1) {
+                    groups.add(group);
+                    group = new ArrayList<>(2);
+                    group.add(0, i);
+                    group.add(1, i);
+                }
+                group.set(0, i);
+            }
+            group.set(1, i);
+        }
+        if (group.get(1) - group.get(0) > 1) {
+            groups.add(group);
+        }
+        return groups;
     }
 }
 
