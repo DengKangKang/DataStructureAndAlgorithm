@@ -1,4 +1,3 @@
-import array.Array;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -616,7 +615,7 @@ class Solution17 {
 class Solution18 {
 
     public List<List<Integer>> largeGroupPositions(String s) {
-        if( s==null || s.isEmpty()) return new LinkedList<>();
+        if (s == null || s.isEmpty()) return new LinkedList<>();
         List<List<Integer>> groups = new LinkedList<>();
         char[] chars = s.toCharArray();
         List<Integer> group = new ArrayList<>(2);
@@ -643,6 +642,119 @@ class Solution18 {
     }
 }
 
+@SuppressWarnings("unused")
+class Solution19 {
+    public static void main(String[] args) {
+        System.out.println(reverse(1534236469));
+    }
 
+    public static int reverse(int x) {
+        int rev = 0;
+        while (x != 0) {
+            if (rev <= Integer.MIN_VALUE / 10 || rev >= Integer.MAX_VALUE / 10)
+                return 0;
+            int digit = x % 10;
+            x /= 10;
+            rev = rev * 10 + digit;
+        }
+        return rev;
+    }
 
+}
+
+@SuppressWarnings("unused")
+class Solution20 {
+
+    //    字符          数值
+    //    I             1
+    //    V             5
+    //    X             10
+    //    L             50
+    //    C             100
+    //    D             500
+    //    M             1000
+    private final HashMap<Character, Integer> stringCharacterHashMap;
+
+    {
+        stringCharacterHashMap = new HashMap<>();
+        stringCharacterHashMap.put('I', 1);
+        stringCharacterHashMap.put('V', 5);
+        stringCharacterHashMap.put('X', 10);
+        stringCharacterHashMap.put('L', 50);
+        stringCharacterHashMap.put('C', 100);
+        stringCharacterHashMap.put('D', 500);
+        stringCharacterHashMap.put('M', 1000);
+    }
+
+    public int romanToInt(String s) {
+        int result = 0;
+        int i = 0;
+        while (i < s.length()) {
+            char first = s.charAt(i);
+            if (++i < s.length() && isPair(first, s.charAt(i))) {
+                result += (stringCharacterHashMap.get(s.charAt(i)) - stringCharacterHashMap.get(first));
+                i++;
+            } else {
+                result += stringCharacterHashMap.get(first);
+            }
+        }
+        return result;
+    }
+
+    public boolean isPair(char first, char last) {
+        return stringCharacterHashMap.get(first) < stringCharacterHashMap.get(last);
+    }
+
+}
+
+@SuppressWarnings("unused")
+class Solution21 {
+
+    public static void main(String[] args) {
+
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode(0);
+        ListNode tail = result;
+        while (l1 != null && l2 != null) {
+            int i = l1.val + l2.val + tail.val;
+            int carry = i / 10;
+            tail.val = i % 10;
+            l1 = l1.next;
+            l2 = l2.next;
+            if (l1 == null && l2 == null && carry == 0) return result;
+            tail.next = new ListNode(carry);
+            tail = tail.next;
+        }
+        ListNode surplus = l1 == null ? l2 : l1;
+        while (surplus != null) {
+            int i = tail.val + surplus.val;
+            int carry = i / 10;
+            tail.val = i % 10;
+            surplus = surplus.next;
+            if (surplus == null && carry == 0) return result;
+            tail.next = new ListNode(carry);
+            tail = tail.next;
+        }
+        return result;
+    }
+}
 
