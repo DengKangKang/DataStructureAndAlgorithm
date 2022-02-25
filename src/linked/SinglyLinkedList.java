@@ -10,10 +10,10 @@ public class SinglyLinkedList {
         System.out.println(ls);
     }
 
-    private Node head = new Node(-1, null);
+    public Node head = new Node(-1, null);
 
 
-    private void add(int v) {
+    public void add(int v) {
         head.next = new Node(v, head.next);
     }
 

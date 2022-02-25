@@ -1,8 +1,15 @@
 package tree;
 
+
+import com.sun.jndi.toolkit.url.Uri;
+import com.sun.jndi.toolkit.url.UrlUtil;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
 class BinarySearchTree {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MalformedURLException {
         BinarySearchTree tree = new BinarySearchTree();
         tree.insert(4);
         tree.insert(3);
@@ -13,7 +20,6 @@ class BinarySearchTree {
         tree.insert(11);
         tree.insert(9);
         tree.layerOrder(tree.tree);
-
     }
 
     private Node tree;
@@ -89,7 +95,7 @@ class BinarySearchTree {
         else child = p.right;
 
         if (pp == null) tree = child;
-        else if(pp.left == p )pp.left = child;
+        else if (pp.left == p) pp.left = child;
         else pp.right = child;
     }
 
@@ -135,7 +141,7 @@ class BinarySearchTree {
         }
     }
 
-    class Node {
+    static class Node {
         int v;
         Node left;
         Node right;

@@ -758,3 +758,71 @@ class Solution21 {
     }
 }
 
+@SuppressWarnings("unused")
+class Solution22 {
+
+    public static void main(String[] args) {
+        //"abcabcbb"
+        //"tmmzuxt"
+        System.out.println(lengthOfLongestSubstring("abcabcbb"));
+    }
+
+    public static int lengthOfLongestSubstring(String s) {
+        if (s.isEmpty()) return 0;
+        int result = 1;
+        char[] chars = s.toCharArray();
+        HashMap<Character, Integer> record = new HashMap<>();
+        record.put(chars[0], 0);
+        int length = 1;
+        for (int i = 1; i < chars.length; i++) {
+            int lastIndex = record.get(chars[i]) == null ? -1 : record.get(chars[i]);
+            if ((lastIndex < i - length)) {
+                length++;
+            } else {
+                length = i - lastIndex;
+            }
+            record.put(chars[i], i);
+            result = Math.max(result, length);
+        }
+        return result;
+    }
+
+}
+
+
+class Solution23 {
+
+    public static void main(String[] args) {
+
+
+    }
+
+    public int removeDuplicates(int[] nums) {
+        int num = nums[0];
+        int reDuplicativeCount = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (num == nums[i]) {
+                reDuplicativeCount++;
+            } else {
+                num = nums[i];
+                if (reDuplicativeCount < 1) continue;
+                nums[i - reDuplicativeCount] = num;
+            }
+        }
+        return nums.length - reDuplicativeCount;
+    }
+}
+
+class Solution24 {
+    public int removeElement(int[] nums, int val) {
+        int duplicativeCount = 0;
+        for (int i = nums.length - 1; i > -1; i--) {
+            if (nums[i] == val) {
+                ++duplicativeCount;
+                if (i == nums.length - duplicativeCount) continue;
+                nums[i] = nums[nums.length - duplicativeCount];
+            }
+        }
+        return nums.length - duplicativeCount;
+    }
+}
