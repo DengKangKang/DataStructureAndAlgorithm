@@ -247,10 +247,10 @@ class Solution5 {
 class Solution6 {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution6().twoSum(new int[]{1, 2, 4, 6, 10}, 11)));
+        System.out.println(Arrays.toString(new Solution6().twoSum(new int[]{1, 2, 4, 6, 10}, 3)));
+        System.out.println(Arrays.toString(new Solution6().specialTwoSum(new int[]{1, 2, 4, 6, 10}, 3)));
     }
 
-    // TODO: 2022/10/8
     public int[] twoSum(int[] numbers, int target) {
         int[] result = new int[2];
         Map<Integer, Integer> map = new HashMap<>();
@@ -269,17 +269,18 @@ class Solution6 {
     ///numbers是以升序排列的
     ///采用双指针优化空间复杂度
     public int[] specialTwoSum(int[] numbers, int target) {
-        int[] result = new int[2];
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < numbers.length; i++) {
-            int val = map.getOrDefault(target - numbers[i], -1);
-            if (val == -1) {
-                map.put(numbers[i], i);
+        int left = 0;
+        int right = numbers.length - 1;
+        while (right > left) {
+            int sum = numbers[right] + numbers[left];
+            if (sum > target) {
+                right--;
+            } else if (sum < target) {
+                left++;
             } else {
-                result[0] = val;
-                result[1] = i;
+                break;
             }
         }
-        return result;
+        return new int[]{left, right};
     }
 }
