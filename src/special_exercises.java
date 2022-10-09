@@ -1,7 +1,7 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import com.sun.javafx.geom.Matrix3f;
+import sun.plugin.dom.css.Rect;
+
+import java.util.*;
 
 ///剑指offer专项100题
 
@@ -13,6 +13,7 @@ class Solution1 {
         System.out.println(new Solution1().divide(-2147483648, -1109186033));
     }
 
+    //二分查找法
     public int divide(int a, int b) {
         boolean rev = false;
         if ((a ^ b) < 0) rev = true;
@@ -72,6 +73,9 @@ class Solution1 {
         return small;
     }
 
+    ///代码实现二进制除法竖式
+    ///时、空复杂度皆为O(1)
+    ///关键点就是被除数通过右移取高位。
     public int improvedDivide(int a, int b) {
         boolean rev = (a ^ b) < 0;
         if (a == Integer.MIN_VALUE && b == -1) {
@@ -236,10 +240,72 @@ class Solution4 {
 
 //单词长度的最大乘积
 class Solution5 {
-    // TODO: 2022/10/8
-    public int maxProduct(String[] words) {
 
-        return 100;
+    public static void main(String[] args) {
+        System.out.println(new Solution5().maxProduct(new String[]{"abcw", "baz", "foo", "bar", "fxyz", "abcdef"}));
+        System.out.println(new Solution5().maxProduct(new String[]{"a", "ab", "abc", "d", "cd", "bcd", "abcd"}));
+        System.out.println(new Solution5().maxProduct(new String[]{"a", "aa", "aaa", "aaaa"}));
+        System.out.println(new Solution5().improveMaxProduct(new String[]{"abcw", "baz", "foo", "bar", "fxyz", "abcdef"}));
+        System.out.println(new Solution5().improveMaxProduct(new String[]{"a", "ab", "abc", "d", "cd", "bcd", "abcd"}));
+        System.out.println(new Solution5().improveMaxProduct(new String[]{"a", "aa", "aaa", "aaaa"}));
+    }
+
+    //暴力求解 时间复杂度大于O(n^2)
+    public int maxProduct(String[] words) {
+        int width = 0;
+        int height = 0;
+        for (int i = 0; i < words.length; i++) {
+            String x = words[i];
+            for (int j = i + 1; j < words.length; j++) {
+                String y = words[j];
+                if (containSameElement(x, y)) continue;
+                if (x.length() * y.length() > width * height) {
+                    width = x.length();
+                    height = y.length();
+                }
+
+            }
+        }
+        return width * height;
+    }
+
+    public boolean containSameElement(String a, String b) {
+        boolean result = false;
+        char[] aChars = a.toCharArray();
+        char[] bChars = b.toCharArray();
+        for (char aChar : aChars) {
+            for (char bChar : bChars) {
+                if (aChar == bChar) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    //单个word只由小写字母组成
+    //使用掩码的方式降低比对两个word是否又相同字母的时间复杂度，以达到时间复杂度等于O(n^2)。
+    //对每个word生成掩码需要额外的空间复杂度O(n)
+    public int improveMaxProduct(String[] words) {
+        int product = 0;
+        int[] masks = new int[words.length];
+        for (int i = 0; i < words.length; i++) {
+            int mask = 0;
+            char[] chars = words[i].toCharArray();
+            for (char aChar : chars) {
+                mask |= 1 << aChar - 'a';
+            }
+            masks[i] = mask;
+        }
+        for (int i = 0; i < words.length; i++) {
+            for (int j = i + 1; j < words.length; j++) {
+                if ((masks[i] & masks[j]) == 0) {
+                    product = Math.max(product, words[i].length() * words[j].length());
+                }
+            }
+        }
+        return product;
     }
 }
 
@@ -283,4 +349,49 @@ class Solution6 {
         }
         return new int[]{left, right};
     }
+}
+
+//数组中和为 0 的三个数
+class Solution7 {
+
+    public static void main(String[] args) {
+        System.out.println(new Solution7().threeSum(new int[]{-1, 0, 1, 1, 1, 2, 2, 2, -1, -1, -1, -1, -1, -1, -1, -1}));
+    }
+
+    ///三重遍历最终需要落到去重，时、空复杂度都不理想。
+    ///考虑先排序，这样有效避免了重复问题。
+    ///第一层遍历确定第一个数nums[i]后，第二层遍历就变成了twoSum，即nums[j] + nums[k] = -nums[i]。
+    // 因为数组是升序排列的所以直接用双指针来解即可。
+    // 还要考虑的一个点是第一层还是第二层遍历如果碰到重复的数需要跳过
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) continue;
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (right > left) {
+                int sum = nums[left] + nums[right];
+                if (left != i + 1 && nums[left] == nums[left - 1]) {
+                    left++;
+                } else if (right != nums.length - 1 && nums[right] == nums[right + 1]) {
+                    right--;
+                } else if (sum > -nums[i]) {
+                    right--;
+                } else if (sum < -nums[i]) {
+                    left++;
+                } else {
+                    List<Integer> integers = new ArrayList<>();
+                    integers.add(nums[i]);
+                    integers.add(nums[left]);
+                    integers.add(nums[right]);
+                    result.add(integers);
+                    left++;
+                    right--;
+                }
+            }
+        }
+        return result;
+    }
+
 }
