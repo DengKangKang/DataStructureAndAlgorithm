@@ -1,6 +1,3 @@
-import com.sun.javafx.geom.Matrix3f;
-import sun.plugin.dom.css.Rect;
-
 import java.util.*;
 
 ///剑指offer专项100题
@@ -421,10 +418,23 @@ class Solution8 {
 
 }
 
+///剑指 Offer II 012. 左右两边子数组的和相等
 class Solution12 {
+
+    public static void main(String[] args) {
+        System.out.println(new Solution12().pivotIndex(new int[]{2, 1, -1}));
+    }
+
     public int pivotIndex(int[] nums) {
-
-
-        return 1;
+        int[] summarise = new int[nums.length + 1];
+        for (int i = 1; i < summarise.length; i++) {
+            summarise[i] += summarise[i - 1] + nums[i - 1];
+        }
+        for (int i = 1; i < summarise.length; i++) {
+            if (summarise[summarise.length - 1] - summarise[i] == summarise[i - 1]) {
+                return i - 1;
+            }
+        }
+        return -1;
     }
 }
