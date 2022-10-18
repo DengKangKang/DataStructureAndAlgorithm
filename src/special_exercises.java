@@ -395,3 +395,37 @@ class Solution7 {
     }
 
 }
+
+//和大于等于 target 的最短子数组
+class Solution8 {
+    /*
+    * 注：在用滑动窗口寻找最小字串的时候，窗口应该从小到大，否则会碰到移动左窗口还是右窗口的问题。
+    * */
+    public static void main(String[] args) {
+        System.out.println(new Solution8().minSubArrayLen(3, new int[]{1, 1, 1,}));
+    }
+
+    ///滑动窗口
+    public int minSubArrayLen(int target, int[] nums) {
+        int left = 0, right = 0, summarise = 0;
+        int result = Integer.MAX_VALUE;
+        while (right < nums.length) {
+            summarise += nums[right++];
+            //寻找长传中符合条件的字串；
+            while (summarise >= target) {
+                ///对子串的头部进行修剪找到符合条件并且长度最小的子串，与后面的字符拼接；
+                summarise -= nums[left++];
+                result = Math.min(right - left + 1, result);
+            }
+        }
+        return result == Integer.MAX_VALUE ? 0 : result;
+    }
+
+}
+
+class Solution12 {
+    public int pivotIndex(int[] nums) {
+
+        return 1;
+    }
+}
