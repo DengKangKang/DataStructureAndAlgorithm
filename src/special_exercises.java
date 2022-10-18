@@ -398,9 +398,7 @@ class Solution7 {
 
 //和大于等于 target 的最短子数组
 class Solution8 {
-    /*
-    * 注：在用滑动窗口寻找最小字串的时候，窗口应该从小到大，否则会碰到移动左窗口还是右窗口的问题。
-    * */
+
     public static void main(String[] args) {
         System.out.println(new Solution8().minSubArrayLen(3, new int[]{1, 1, 1,}));
     }
@@ -425,6 +423,7 @@ class Solution8 {
 
 class Solution12 {
     public int pivotIndex(int[] nums) {
+
 
         return 1;
     }
